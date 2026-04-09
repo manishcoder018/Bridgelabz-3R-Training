@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Dashboard</title>
+  <link rel="stylesheet" href="/style.css">
+</head>
+<body>
+
+<div class="navbar">
+  <h2>EMPLOYEE PAYROLL</h2>
+  <div>
+    <a href="/dashboard">Dashboard</a>
+    <a href="/employees/add" class="add-btn">+ Add User</a>
+    <a href="/logout">Logout</a>
+  </div>
+</div>
+
+<div class="container">
+  <h2>Employee Details</h2>
+
+  <table class="emp-table">
+    <tr>
+      <th>Name</th>
+      <th>Gender</th>
+      <th>Department</th>
+      <th>Salary</th>
+      <th>Action</th>
+    </tr>
+
+    <% employees.forEach(emp => { %>
+      <tr>
+        <td>
+          <div class="name-cell">
+            <div class="avatar-small">
+              <%= emp.name.charAt(0).toUpperCase() %>
+            </div>
+            <div>
+              <div class="emp-name"><%= emp.name %></div>
+              <div class="emp-sub">
+                <%= Array.isArray(emp.department) 
+                    ? emp.department.join(", ") 
+                    : emp.department %>
+              </div>
+            </div>
+          </div>
+        </td>
+
+        <td><%= emp.gender %></td>
+
+        <td>
+          <%= Array.isArray(emp.department) 
+              ? emp.department.join(", ") 
+              : emp.department %>
+        </td>
+
+        <td>₹ <%= emp.salary %></td>
+
+        <td class="action-icons">
+          <a href="/employees/edit/<%= emp.id %>" class="edit-icon">✏</a>
+          <a href="/employees/delete/<%= emp.id %>" 
+             onclick="return confirm('Delete this employee?')" 
+             class="delete-icon">
+             🗑
+          </a>
+        </td>
+      </tr>
+    <% }) %>
+
+  </table>
+</div>
+
+</body>
+</html>
